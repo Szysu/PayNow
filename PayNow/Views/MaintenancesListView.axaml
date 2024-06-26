@@ -1,0 +1,44 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:PayNow.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="PayNow.Views.MaintenancesListView"
+             x:DataType="vm:MaintenancesListViewModel">
+    
+    <Design.DataContext>
+        <vm:MaintenancesListViewModel />
+    </Design.DataContext>
+
+    <DataGrid Name="Grid" Margin="20" ItemsSource="{Binding Maintenances}"
+              GridLinesVisibility="All" BorderThickness="1"
+              CanUserResizeColumns="True" CanUserReorderColumns="True"
+              BorderBrush="Gray" SelectionMode="Single" SelectionChanged="OnSelectionChanged">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
+            <DataGridTextColumn Header="Scooter ID" Binding="{Binding ScooterId}" />
+            <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+            <DataGridTemplateColumn Header="Start Date">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <DatePicker SelectedDate="{Binding StartDate}" />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="End Date">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <DatePicker SelectedDate="{Binding EndDate}" />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+        </DataGrid.Columns>
+        <DataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Add new" Click="AddMaintenance" />
+                <MenuItem Header="Remove" Click="RemoveMaintenance" />
+            </ContextMenu>
+        </DataGrid.ContextMenu>
+    </DataGrid>
+</UserControl>

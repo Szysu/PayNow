@@ -1,0 +1,45 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PayNow.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sharpengine="clr-namespace:Ab4d.SharpEngine.AvaloniaUI;assembly=Ab4d.SharpEngine.AvaloniaUI"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="PayNow.Views.ScootersListView"
+             x:DataType="vm:ScootersListViewModel">
+
+    <Design.DataContext>
+        <vm:ScootersListViewModel />
+    </Design.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="200" MaxHeight="800" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <sharpengine:SharpEngineSceneView Grid.Row="0" x:Name="MainSceneView" PresentationType="SharedTexture" />
+        <DataGrid Name="Grid" Grid.Row="1" Margin="20" ItemsSource="{Binding Scooters}"
+                  CanUserResizeColumns="True" CanUserReorderColumns="True"
+                  GridLinesVisibility="All" BorderThickness="1" BorderBrush="Gray"
+                  SelectionMode="Single" SelectionChanged="OnSelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}" />
+                <DataGridTextColumn Header="Model" Binding="{Binding Model}" />
+                <DataGridTemplateColumn Header="Production Date">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding ProductionDateAsDateTime}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add new" Click="AddScooter" />
+                    <MenuItem Header="Remove" Click="RemoveScooter" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+    </Grid>
+</UserControl>

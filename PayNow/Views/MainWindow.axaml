@@ -1,0 +1,34 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:rxui="http://reactiveui.net"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:PayNow.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:app="clr-namespace:PayNow"
+        xmlns:views="clr-namespace:PayNow.Views"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="PayNow.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="PayNow">
+    <Grid ColumnDefinitions="125,*" RowDefinitions="*,50">
+        <StackPanel Grid.Column="0" Orientation="Vertical">
+            <Button Content="Scooters" Command="{Binding NavigateToScootersList}" />
+            <Button Content="Rentals" Command="{Binding NavigateToRentalsList}" />
+            <Button Content="Maintenances" Command="{Binding NavigateToMaintenancesList}" />
+            <Button Content="Customers" Command="{Binding NavigateToCustomersList}" />
+        </StackPanel>
+        <rxui:RoutedViewHost Grid.Column="1" Router="{Binding Router}">
+            <rxui:RoutedViewHost.DefaultContent>
+                <TextBlock Text="Page not found"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+            </rxui:RoutedViewHost.DefaultContent>
+            <rxui:RoutedViewHost.ViewLocator>
+                <app:ViewLocator />
+            </rxui:RoutedViewHost.ViewLocator>
+        </rxui:RoutedViewHost>
+        <views:Dialog Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
+    </Grid>
+
+</Window>

@@ -1,0 +1,43 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:PayNow.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="PayNow.Views.CustomersListView"
+             x:DataType="vm:CustomersListViewModel">
+
+    <Design.DataContext>
+        <vm:CustomersListViewModel />
+    </Design.DataContext>
+
+    <DataGrid Name="Grid" Margin="20" ItemsSource="{Binding Customers}"
+              GridLinesVisibility="All" BorderThickness="1"
+              CanUserResizeColumns="True" CanUserReorderColumns="True"
+              BorderBrush="Gray" SelectionMode="Single" SelectionChanged="OnSelectionChanged">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
+            <DataGridTemplateColumn Header="Photo">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Image asyncImageLoader:ImageLoader.Source="{Binding PhotoUrl}" MaxWidth="40" MaxHeight="40"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+                <DataGridTemplateColumn.CellEditingTemplate>
+                    <DataTemplate>
+                        <TextBox Text="{Binding PhotoUrl}" />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellEditingTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTextColumn Header="First name" Binding="{Binding FirstName}" />
+            <DataGridTextColumn Header="Last name" Binding="{Binding LastName}" />
+        </DataGrid.Columns>
+        <DataGrid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Add new" Click="AddCustomer" />
+                <MenuItem Header="Remove" Click="RemoveCustomer" />
+            </ContextMenu>
+        </DataGrid.ContextMenu>
+    </DataGrid>
+</UserControl>
